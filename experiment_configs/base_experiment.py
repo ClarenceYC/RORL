@@ -2,6 +2,7 @@ from lifelong_rl.samplers.utils.model_rollout_functions import policy
 import numpy as np
 import torch
 import time
+import pickle
 
 import gtimer as gt
 import os
@@ -198,6 +199,8 @@ def experiment(
         num_paths = 10
         time_start = time.time()
         paths = simple_evaluation(config, variant, obs_dim, action_dim, num_paths=num_paths)
+        with open(os.path.join(os.path.dirname(variant['load_path']), 'path.pkl'), 'wb') as f:
+            pickle.dump(paths, f)
         returns = [sum(path["rewards"]) for path in paths]
         r_std, r_min, r_max = np.std(returns), np.min(returns), np.max(returns)
         norm_returns = [d4rl.get_normalized_score(variant['env_name'], x) for x in returns]

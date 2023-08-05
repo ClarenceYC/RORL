@@ -1,0 +1,1 @@
+python -m scripts.sac --env_name 'halfcheetah-v2' --num_qs 10 --norm_input --eval_no_training --load_path '/remote-home/yjy/RORL/RORL_10/halfcheetah-medium-expert-v2_Sat_May__6_21:32:18_2023_0/offline_itr_3000.pt' --exp_prefix eval_RORL

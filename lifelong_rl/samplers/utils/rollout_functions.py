@@ -106,6 +106,7 @@ def rollout(
     terminals = []
     agent_infos = []
     env_infos = []
+    render_array = []
 
     o = env.reset()
     agent.reset()
@@ -116,6 +117,8 @@ def rollout(
     while path_length < max_path_length:
         a, agent_info = agent.get_action(o)
         next_o, r, d, env_info = env.step(np.clip(a, -1, 1))
+        img = env.render('rgb_array')
+        render_array.append(img)
         observations.append(o)
         rewards.append(r)
         terminals.append(d)
@@ -149,6 +152,7 @@ def rollout(
         terminals=np.array(terminals).reshape(-1, 1),
         agent_infos=agent_infos,
         env_infos=env_infos,
+        render_img=render_array
     )
 
 
